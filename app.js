@@ -2,26 +2,43 @@
 /*
 Build all of your functions for displaying and gathering information below (GUI).
 */
-
 // app is the function called to start the entire application
+
 function app(people){
   let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   let searchResults;
   let searchByGenderResults;
+  let userInput;
+
   switch(searchType){
     case 'yes':
       searchResults = searchByName(people);
       break;
+
     case 'no':
-      searchByCriteria(people);
-      // TODO: search by traits
+      userInput = prompt('Would you like to search by one or multiple criterion? [one] or [multiple]');
+
+      if(userInput === 'one') {
+        searchResults = searchByCriteria(people);
+      }
+      else if(userInput === 'multiple'){
+        searchResults = searchByMultipleTraits(people);
+      }
       break;
-      default:
-    app(people); // restart app
+
+    default:
+      app(people); // restart app
       break;
   }
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   mainMenu(searchResults, people);
+}
+
+function determineSearchType(){
+
+  if (userInput === 'one') {
+    return
+  }
 }
 
 function searchByCriteria(people) {
@@ -61,17 +78,13 @@ function mainMenu(person, people){
 
     switch(displayOption){
       case "info":
-        displayPersonInfo(person);
-      // TODO: get person's info
+        displayPerson(person);
         break;
       case "family":
       // TODO: get person's family
         break;
       case "descendants":
       // TODO: get person's descendants
-        break;
-      case "edit":
-        addSalaries(people);
         break;
       case "restart":
       app(people); // restart
@@ -84,26 +97,21 @@ function mainMenu(person, people){
   }
 }
 
-function addSalaries(people) {
-  let salariesAdded = people.map(function(el) {
-    el.salary = prompt('Enter ' + el.firstName + '`s salary');
-    return el;
-  })
-}
 
-function displayPersonInfo (person) {
-  window.alert(
-    'Name: ' + person.firstName + ' ' + person.lastName + '\n',
-    'Gender: ' + person.gender + '\n',
-    'DOB: ' + person.dob + '\n',
-    'Occupation: ' + person.occupation + '\n');
+function displayPerson(person){
+  let personInfo = "First Name: " + person.firstName + "\n";
+  personInfo += "Last Name: " + person.lastName + "\n";
+  personInfo += "Occupation: " + person.occupation + "\n";
+  personInfo += "Height: " + person.height + "\n";
+  personInfo += "Weight: " + person.weight + "\n";
+  personInfo += "Eye color: " + person.eyeColor + "\n";
+
+  alert(personInfo);
 }
 
 function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
-
-  // let foundPerson = [];
   
   let foundPerson = people.filter(function(person){
     if(person.firstName == firstName && person.lastName == lastName){
@@ -114,7 +122,6 @@ function searchByName(people){
       return false;
     }
   })
-  // TODO: find the person using the name they entered
   return foundPerson[0];
 }
 
@@ -123,15 +130,6 @@ function displayPeople(people){
   alert(people.map(function(person){
     return person.firstName + " " + person.lastName;
   }).join("\n"));
-}
-
-function displayPerson(person){
-  // print all of the information about a person:
-  // height, weight, age, name, occupation, eye color.
-  let personInfo = "First Name: " + person.firstName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
-  // TODO: finish getting the rest of the information to display
-  alert(personInfo);
 }
 
 // function that prompts and validates user input
