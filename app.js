@@ -26,8 +26,6 @@ function app(people){
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
 
-  let personObj = person;
-  let displayOption;
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
   if(!person){
@@ -35,13 +33,13 @@ function mainMenu(person, people){
     return app(people); // restart
   }
   else {
-    let firstName = personObj.firstName;
-    let lastName = personObj.lastName;
 
-    displayOption = prompt("Found " + firstName + " " + lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+    window.alert('Found ' + person.firstName + ' ' + person.lastName + '.');
+    let displayOption = prompt("Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
     switch(displayOption){
       case "info":
+        displayPersonInfo(person);
       // TODO: get person's info
       break;
       case "family":
@@ -61,15 +59,23 @@ function mainMenu(person, people){
   }
 }
 
+function displayPersonInfo (person) {
+  window.alert(
+    'Name: ' + person.firstName + ' ' + person.lastName + '\n',
+    'Gender: ' + person.gender + '\n',
+    'DOB: ' + person.dob + '\n',
+    'Occupation: ' + person.occupation + '\n');
+}
+
 function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
 
-  let foundPerson = [];
+  // let foundPerson = [];
   
-  foundPerson = people.filter(function(person){
+  let foundPerson = people.filter(function(person){
     if(person.firstName == firstName && person.lastName == lastName){
-      foundPerson.push(person);
+      // foundPerson.push(person);
       return true;
     }
     else{
@@ -98,9 +104,8 @@ function displayPerson(person){
 
 // function that prompts and validates user input
 function promptFor(question, valid){
-  let response;
   do{
-    response = prompt(question).trim();
+    var response = prompt(question).trim();
   } while(!response || !valid(response));
   return response;
 }
