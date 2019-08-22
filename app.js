@@ -10,7 +10,6 @@ function app(people){
   let searchByGenderResults;
   switch(searchType){
     case 'yes':
-      searchByCriteria(people);
       searchResults = searchByName(people);
       break;
     case 'no':
@@ -21,7 +20,6 @@ function app(people){
     app(people); // restart app
       break;
   }
-  
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   mainMenu(searchResults, people);
 }
@@ -30,6 +28,7 @@ function searchByCriteria(people) {
   let userInput = prompt('What would you like to search by? [gender] [eye color] [height] [weight] [occupation]');
   switch (userInput) {
       case 'gender':
+
         break;
       case 'eye color':
         break;
@@ -116,7 +115,7 @@ function searchByName(people){
     }
   })
   // TODO: find the person using the name they entered
-  return foundPerson;
+  return foundPerson[0];
 }
 
 // alerts a list of people
