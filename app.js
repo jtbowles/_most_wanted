@@ -7,11 +7,14 @@ Build all of your functions for displaying and gathering information below (GUI)
 function app(people){
   let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   let searchResults;
+  let searchByGenderResults;
   switch(searchType){
     case 'yes':
+      searchByCriteria(people);
       searchResults = searchByName(people);
       break;
     case 'no':
+      searchByCriteria(people);
       // TODO: search by traits
       break;
       default:
@@ -21,6 +24,26 @@ function app(people){
   
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   mainMenu(searchResults, people);
+}
+
+function searchByCriteria(people) {
+  let userInput = prompt('What would you like to search by? [gender] [eye color] [height] [weight] [occupation]');
+  switch (userInput) {
+      case 'gender':
+        break;
+      case 'eye color':
+        break;
+      case 'height':
+        break;
+      case 'weight':
+        break;
+      case 'occupation':
+        break;
+      default:
+        window.alert('Please enter a corresponding criterion');
+        searchByCriteria(people);
+        return;
+  }
 }
 
 // Menu function to call once you find who you are looking for
@@ -41,22 +64,32 @@ function mainMenu(person, people){
       case "info":
         displayPersonInfo(person);
       // TODO: get person's info
-      break;
+        break;
       case "family":
       // TODO: get person's family
-      break;
+        break;
       case "descendants":
       // TODO: get person's descendants
-      break;
+        break;
+      case "edit":
+        addSalaries(people);
+        break;
       case "restart":
       app(people); // restart
-      break;
+        break;
       case "quit":
-      return; // stop execution
+        return; // stop execution
       default:
-      return mainMenu(person, people); // ask again
+        return mainMenu(person, people); // ask again
     }
   }
+}
+
+function addSalaries(people) {
+  let salariesAdded = people.map(function(el) {
+    el.salary = prompt('Enter ' + el.firstName + '`s salary');
+    return el;
+  })
 }
 
 function displayPersonInfo (person) {
