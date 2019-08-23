@@ -58,6 +58,32 @@ function searchByMultipleTraits(people) {
   }
 }
 
+function searchByCriteria(people) {
+  let userInput = prompt('What would you like to search by? [gender] [eye color] [height] [weight] [occupation]');
+  switch (userInput) {
+      case 'gender':
+        searchByGender(people);
+        break;
+      case 'eye color':
+        searchByEyeColor(people);
+        break;
+      case 'height':
+        searchByHeight(people);
+        break;
+      case 'weight':
+        searchByWeight(people);
+        break;
+      case 'occupation':
+        searchByOccupation(people);
+        break;
+      default:
+        window.alert('Please enter a corresponding criterion');
+        searchByCriteria(people);
+        return;
+  }
+  return app(people);
+}
+
 function searchByGender(people){
   let gender = promptFor("What is the person's gender?", chars);
 
@@ -111,28 +137,46 @@ function searchByHeight(people){
   }
 }
 
-function searchByCriteria(people) {
-  let userInput = prompt('What would you like to search by? [gender] [eye color] [height] [weight] [occupation]');
-  switch (userInput) {
-      case 'gender':
-        searchByGender(people);
-        break;
-      case 'eye color':
-        searchByEyeColor(people);
-        break;
-      case 'height':
-        searchByHeight(people);
-        break;
-      case 'weight':
-        break;
-      case 'occupation':
-        break;
-      default:
-        window.alert('Please enter a corresponding criterion');
-        searchByCriteria(people);
-        return;
+function searchByWeight(people){
+  let weight = promptFor("What is the person's weight in pounds?", chars);
+
+  let foundPersons = people.filter(function(person) {
+    if(person.weight == weight) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  })
+
+  if (foundPersons.length === 0 || foundPersons.length === 1) {
+    mainMenu(foundPersons[0], people);
   }
-  return app(people);
+  else {
+    displayPeople(foundPersons);
+    return app(people);
+  }
+}
+
+function searchByOccupation(people){
+  let occupation = promptFor("What is the person's occupation?", chars);
+
+  let foundPersons = people.filter(function(person) {
+    if(person.occupation == occupation) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  })
+
+  if (foundPersons.length === 0 || foundPersons.length === 1) {
+    mainMenu(foundPersons[0], people);
+  }
+  else {
+    displayPeople(foundPersons);
+    return app(people);
+  }
 }
 
 function mainMenu(person, people){
