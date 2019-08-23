@@ -47,8 +47,13 @@ function searchByMultipleTraits(people) {
       return false;
     }
   })
-  displayPeople(foundPerson);
-  return foundPerson;
+  if (foundPerson.length === 0 || foundPerson.length === 1) {
+    return foundPerson[0];
+  }
+  else {
+    displayPeople(foundPerson);
+    return foundPerson;
+  }
 }
 
 function searchByCriteria(people) {
