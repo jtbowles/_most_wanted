@@ -54,7 +54,7 @@ function searchByMultipleTraits(people) {
   }
   else {
     displayPeople(foundPerson);
-    return foundPerson;
+    return app(people);
   }
 }
 
