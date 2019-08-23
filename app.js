@@ -198,10 +198,12 @@ function mainMenu(person, people){
       // TODO: get person's family
         break;
       case "descendants":
-      // TODO: get person's descendants
+        let descendants = [];
+        findChildren(people, person, descendants);
+        displayPeople(descendants);
         break;
       case "restart":
-      app(people); // restart
+        app(people); // restart
         break;
       case "quit":
         return; // stop execution
@@ -210,6 +212,29 @@ function mainMenu(person, people){
     }
     return app(people);
   }
+}
+
+function findChildren(people, person, descendants) {
+
+  let foundChildren = people.filter(function(el){
+    if(el.parents[0] === person.id || el.parents[1] === person.id) {
+      return true; 
+    }   
+    else{
+      return false;
+    }
+  });  
+
+  if(foundChildren.length === 0) {
+    return;
+  }
+  else {
+    for(let i = 0; i < foundChildren.length; i++){
+      descendants.push(foundChildren[i]);
+      findChildren(people, foundChildren[i], descendants);
+    }
+  }
+  return descendants;
 }
 
 
