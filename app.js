@@ -18,7 +18,7 @@ function app(people){
       break;
 
     case 'no':
-      userInput = prompt('Would you like to search by one or multiple criterion? [one] or [multiple]');
+      userInput = promptFor('Would you like to search by one or multiple criterion? [one] or [multiple]', chars);
 
       if(userInput === 'one') {
         searchResults = searchByCriteria(people);
@@ -59,7 +59,7 @@ function searchByMultipleTraits(people) {
 }
 
 function searchByCriteria(people) {
-  let userInput = prompt('What would you like to search by? [gender] [eye color] [height] [weight] [occupation]');
+  let userInput = promptFor('What would you like to search by? [gender] [eye color] [height] [weight] [occupation]', chars);
   switch (userInput) {
       case 'gender':
         searchByGender(people);
@@ -188,7 +188,7 @@ function mainMenu(person, people){
   else {
 
     window.alert('Found ' + person.firstName + ' ' + person.lastName + '.');
-    let displayOption = prompt("Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+    let displayOption = promptFor("Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", chars);
 
     switch(displayOption){
       case "info":
