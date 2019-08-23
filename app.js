@@ -74,6 +74,43 @@ function searchByGender(people){
   return app(people);
 }
 
+function searchByEyeColor(people){
+  let eyeColor = promptFor("What is the person's eye color?", chars);
+
+  let foundPersons = people.filter(function(person) {
+    if(person.eyeColor === eyeColor) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  })
+
+  displayPeople(foundPersons);
+  return app(people);
+}
+
+function searchByHeight(people){
+  let height = promptFor("What is the person's height in inches?", chars);
+
+  let foundPersons = people.filter(function(person) {
+    if(person.height == height) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  })
+
+  if (foundPersons.length === 0 || foundPersons.length === 1) {
+    mainMenu(foundPersons[0], people);
+  }
+  else {
+    displayPeople(foundPersons);
+    return app(people);
+  }
+}
+
 function searchByCriteria(people) {
   let userInput = prompt('What would you like to search by? [gender] [eye color] [height] [weight] [occupation]');
   switch (userInput) {
@@ -81,8 +118,10 @@ function searchByCriteria(people) {
         searchByGender(people);
         break;
       case 'eye color':
+        searchByEyeColor(people);
         break;
       case 'height':
+        searchByHeight(people);
         break;
       case 'weight':
         break;
