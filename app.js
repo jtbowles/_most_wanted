@@ -29,10 +29,9 @@ function app(people){
       break;
 
     default:
-      app(people); // restart app
+      app(people); 
       break;
   }
-  // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   mainMenu(searchResults, people);
 }
 
@@ -49,6 +48,7 @@ function searchByMultipleTraits(people) {
       return false;
     }
   })
+
   if (foundPerson.length === 0 || foundPerson.length === 1) {
     return foundPerson[0];
   }
@@ -58,11 +58,27 @@ function searchByMultipleTraits(people) {
   }
 }
 
+function searchByGender(people){
+  let gender = promptFor("What is the person's gender?", chars);
+
+  let foundPersons = people.filter(function(person) {
+    if(person.gender === gender) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  })
+
+  displayPeople(foundPersons);
+  return app(people);
+}
+
 function searchByCriteria(people) {
   let userInput = prompt('What would you like to search by? [gender] [eye color] [height] [weight] [occupation]');
   switch (userInput) {
       case 'gender':
-
+        searchByGender(people);
         break;
       case 'eye color':
         break;
@@ -77,6 +93,7 @@ function searchByCriteria(people) {
         searchByCriteria(people);
         return;
   }
+  return app(people);
 }
 
 function mainMenu(person, people){
@@ -108,6 +125,7 @@ function mainMenu(person, people){
       default:
         return mainMenu(person, people); // ask again
     }
+    return app(people);
   }
 }
 
@@ -129,7 +147,6 @@ function searchByName(people){
   
   let foundPerson = people.filter(function(person){
     if(person.firstName == firstName && person.lastName == lastName){
-      // foundPerson.push(person);
       return true;
     }
     else{
