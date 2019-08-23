@@ -34,11 +34,21 @@ function app(people){
   mainMenu(searchResults, people);
 }
 
-function determineSearchType(){
+function searchByMultipleTraits(people) {
+  let gender = promptFor("What is the person's gender?", chars);
+  let eyeColor = promptFor("What is the eye color of the person?", chars);
+  let occupation = promptFor("What is the person's occupation?", chars);
 
-  if (userInput === 'one') {
-    return
-  }
+  let foundPerson = people.filter(function(person){
+    if(person.gender == gender && person.eyeColor == eyeColor && person.occupation == occupation){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  displayPeople(foundPerson);
+  return foundPerson;
 }
 
 function searchByCriteria(people) {
@@ -62,10 +72,7 @@ function searchByCriteria(people) {
   }
 }
 
-// Menu function to call once you find who you are looking for
 function mainMenu(person, people){
-
-  /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
   if(!person){
     alert("Could not find that individual.");
@@ -125,14 +132,12 @@ function searchByName(people){
   return foundPerson[0];
 }
 
-// alerts a list of people
 function displayPeople(people){
   alert(people.map(function(person){
     return person.firstName + " " + person.lastName;
   }).join("\n"));
 }
 
-// function that prompts and validates user input
 function promptFor(question, valid){
   do{
     var response = prompt(question).trim();
@@ -140,12 +145,10 @@ function promptFor(question, valid){
   return response;
 }
 
-// helper function to pass into promptFor to validate yes/no answers
 function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
 
-// helper function to pass in as default promptFor validation
 function chars(input){
-  return true; // default validation only
+  return true; 
 }
