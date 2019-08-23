@@ -195,7 +195,8 @@ function mainMenu(person, people){
         displayPerson(person);
         break;
       case "family":
-      // TODO: get person's family
+        let family = findFamily(people, person);
+        displayFamily(family);
         break;
       case "descendants":
         let descendants = [];
@@ -212,6 +213,28 @@ function mainMenu(person, people){
     }
     return app(people);
   }
+}
+
+function findFamily(people, person) {
+
+  let foundFamily = people.filter(function(el){
+    if(el.parents[0] === person.id || el.parents[1] === person.id) {
+        el.relationship = "Child";
+        return true;
+    } 
+    else if (el.currentSpouse === person.id) {
+      el.relationship = "Spouse";
+      return true; 
+    }   
+    else if (el.id === person.parents[0] || el.id === person.parents[1]) {
+      el.relationship = "Parent";
+      return true;
+    }
+    else{
+      return false;
+    }
+  });  
+  return foundFamily;
 }
 
 function findChildren(people, person, descendants) {
@@ -262,6 +285,12 @@ function searchByName(people){
     }
   })
   return foundPerson[0];
+}
+
+function displayFamily(people){
+  alert(people.map(function(person){
+    return person.firstName + " " + person.lastName + " | " + person.relationship;
+  }).join("\n"));
 }
 
 function displayPeople(people){
