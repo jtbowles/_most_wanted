@@ -87,14 +87,7 @@ function searchByCriteria(people) {
 function searchByGender(people){
   let gender = promptFor("What is the person's gender?", chars);
 
-  let foundPersons = people.filter(function(person) {
-    if(person.gender === gender) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  })
+  let foundPersons = people.filter(person => person.gender === gender); 
 
   displayPeople(foundPersons);
   return app(people);
@@ -103,30 +96,21 @@ function searchByGender(people){
 function searchByEyeColor(people){
   let eyeColor = promptFor("What is the person's eye color?", chars);
 
-  let foundPersons = people.filter(function(person) {
-    if(person.eyeColor === eyeColor) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  })
+  let foundPersons = people.filter(person => person.eyeColor === eyeColor); 
 
-  displayPeople(foundPersons);
-  return app(people);
+  if (foundPersons.length === 0 || foundPersons.length === 1) {
+    mainMenu(foundPersons[0], people);
+  }
+  else {
+    displayPeople(foundPersons);
+    return app(people);
+  }
 }
 
 function searchByHeight(people){
   let height = promptFor("What is the person's height in inches?", chars);
 
-  let foundPersons = people.filter(function(person) {
-    if(person.height == height) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  })
+  let foundPersons = people.filter(person => person.height == height); 
 
   if (foundPersons.length === 0 || foundPersons.length === 1) {
     mainMenu(foundPersons[0], people);
@@ -140,14 +124,7 @@ function searchByHeight(people){
 function searchByWeight(people){
   let weight = promptFor("What is the person's weight in pounds?", chars);
 
-  let foundPersons = people.filter(function(person) {
-    if(person.weight == weight) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  })
+  let foundPersons = people.filter(person => person.weight == weight); 
 
   if (foundPersons.length === 0 || foundPersons.length === 1) {
     mainMenu(foundPersons[0], people);
@@ -161,14 +138,7 @@ function searchByWeight(people){
 function searchByOccupation(people){
   let occupation = promptFor("What is the person's occupation?", chars);
 
-  let foundPersons = people.filter(function(person) {
-    if(person.occupation == occupation) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  })
+  let foundPersons = people.filter(person => person.occupation == occupation); 
 
   if (foundPersons.length === 0 || foundPersons.length === 1) {
     mainMenu(foundPersons[0], people);
